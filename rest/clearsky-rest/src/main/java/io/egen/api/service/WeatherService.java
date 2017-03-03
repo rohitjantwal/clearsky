@@ -15,7 +15,7 @@ public interface WeatherService {
 	
 	public Weather latestWeatherOfCity(String city);
 	
-	public String latestWeatherPropertyOfCity(String city, String property);
+	public Weather latestWeatherPropertyOfCity(String city, String property);
 	
 	public HashMap<String,Integer> hourlyWeatherOfCity(String city);
 	

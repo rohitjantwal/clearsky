@@ -1,6 +1,5 @@
 package io.egen.api.service.impl;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,9 +17,6 @@ public class WeatherServiceImpl implements WeatherService {
 	
 	@Autowired
 	WeatherRepository repository;
-	
-	//@Autowired
-	//WindRepository windrepo;
 
 	public WeatherServiceImpl(WeatherRepository repository) {
 		this.repository = repository;
@@ -40,8 +36,6 @@ public class WeatherServiceImpl implements WeatherService {
 			throw new NotFoundException("Record with id " + id + " not found.");
 		} 
 		return existing;
-//		return repository.findOne(id)
-//				.orElseThrow(() -> new NotFoundException("Weather reading with id " + id + " does not exist"));
 	}
 
 	@Override
@@ -88,20 +82,12 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
-	public String latestWeatherPropertyOfCity(String city, String property) {
-		Weather existing = repository.latestWeatherPropertyOfCity(city,property);
-//		for (Field field : existing.getClass().getDeclaredFields())
-//		{
-//			String temp = existing.getClass().getDeclaredFields().getClass().toString();
-//			if(existing.getClass().getDeclaredFields().getClass().toString() == property){
-//			
-//			}
-//		}
+	public Weather latestWeatherPropertyOfCity(String city, String property) {
+		Weather existing = repository.latestWeatherOfCity(city);
 		if(existing == null){
 			throw new NotFoundException("Record with city " + city + " not found.");
 		}
-		return null;
-		//return repository.latestWeatherPropertyOfCity(city,property);
+		return repository.latestWeatherPropertyOfCity(city,property);
 	}
 
 	@Override
