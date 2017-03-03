@@ -10,5 +10,6 @@
 **/.metadata
 **/Servers
 **/RemoteSystemsTempFiles
+./recommenders
 
 **/target/*
