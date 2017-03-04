@@ -95,7 +95,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	public List<Weather> hourlyWeatherOfCity(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherHourlyList", Weather.class);
 		query.setParameter("pCity", city);
-		query.setParameter("hUnixTime", 3600000-System.currentTimeMillis());
+		query.setParameter("hUnixTime", System.currentTimeMillis()-3600000);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
 			return null;
@@ -108,7 +108,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	public List<Weather> dailyWeatherOfCity(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherHourlyList", Weather.class);
 		query.setParameter("pCity", city);
-		query.setParameter("dUnixTime", 86400000-System.currentTimeMillis());
+		query.setParameter("dUnixTime", System.currentTimeMillis()-86400000);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
 			return null;

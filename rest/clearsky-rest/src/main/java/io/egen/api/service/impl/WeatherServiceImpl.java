@@ -67,7 +67,7 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public List<String> listOfCities() {
 		if(repository.findCityList().isEmpty()){
-			throw new NotFoundException("No sensor readings found in the application.");
+			throw new NotFoundException("No weather readings found in the application.");
 		};
 		return repository.findCityList();
 	}
@@ -82,12 +82,40 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
-	public Weather latestWeatherPropertyOfCity(String city, String property) {
-		Weather existing = repository.latestWeatherOfCity(city);
-		if(existing == null){
+	public HashMap<String,String> latestWeatherPropertyOfCity(String city, String property) {
+		Weather weather = repository.latestWeatherOfCity(city);
+		HashMap<String,String> returnmap = new HashMap<String,String>();
+		if(weather == null){
 			throw new NotFoundException("Record with city " + city + " not found.");
 		}
-		return repository.latestWeatherPropertyOfCity(city,property);
+		String str1 = "description";
+		String str2 = "wind";
+		String str3 = "humidity";
+		String str4 = "pressure";
+		String str5 = "temperature";
+		String str6 = "timestamp";
+		if(str1.equalsIgnoreCase(property)){
+			returnmap.put(city, weather.getDescription());
+			return returnmap;
+		}else if(str2.equalsIgnoreCase(property)){
+			returnmap.put(city, weather.getWind().toString());
+			return returnmap;
+		}else if(str3.equalsIgnoreCase(property)){
+			returnmap.put(city, String.valueOf(weather.getHumidity()));
+			return returnmap;
+		}else if(str4.equalsIgnoreCase(property)){
+			returnmap.put(city, String.valueOf(weather.getPressure()));
+			return returnmap;
+		}else if(str5.equalsIgnoreCase(property)){
+			returnmap.put(city, String.valueOf(weather.getTemperature()));
+			return returnmap;
+		}else if(str6.equalsIgnoreCase(property)){
+			returnmap.put(city, weather.getTimestamp());
+			return returnmap;
+		}
+		else{
+			throw new NotFoundException("Property "+ property +" for city " + city + " not found.");
+		}
 	}
 
 	@Override

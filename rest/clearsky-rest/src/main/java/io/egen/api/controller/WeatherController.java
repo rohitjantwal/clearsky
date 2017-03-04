@@ -72,7 +72,7 @@ public class WeatherController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public Weather latestWeatherPropertyOfCity(@PathVariable("city") String city, @PathVariable("property") String property) {
+	public HashMap<String,String> latestWeatherPropertyOfCity(@PathVariable("city") String city, @PathVariable("property") String property) {
 		return service.latestWeatherPropertyOfCity(city, property);
 	}	
 
