@@ -46,7 +46,7 @@ public class WeatherController {
 		return service.findOne(id);
 	}
 	
-	//implement
+
 	@RequestMapping(method = RequestMethod.GET, value = URI.CITYLIST)
 	@ApiOperation(value = "Find all cities that have weather readings", notes = "List all the cities whoes weather readings exists in the app")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
@@ -56,7 +56,7 @@ public class WeatherController {
 		return service.listOfCities();
 	}
 	
-	//implement
+
 	@RequestMapping(method = RequestMethod.GET, value = URI.CITY)
 	@ApiOperation(value = "Find latest weather for a given city", notes = "Gives the latest weather reading for a given city")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
@@ -66,7 +66,7 @@ public class WeatherController {
 		return service.latestWeatherOfCity(city);
 	}	
 
-	//implement
+
 	@RequestMapping(method = RequestMethod.GET, value = URI.PROPERTY)
 	@ApiOperation(value = "Find latest weather property for a given city", notes = "Gives the latest weather property reading for a given city")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
@@ -76,7 +76,7 @@ public class WeatherController {
 		return service.latestWeatherPropertyOfCity(city, property);
 	}	
 
-	//implement and change uri
+
 	@RequestMapping(method = RequestMethod.GET, value = "hourly/{city}")
 	@ApiOperation(value = "Find average hourly weather for a given city", notes = "Gives the average hourly weather reading for a given city")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
@@ -86,7 +86,7 @@ public class WeatherController {
 		return service.hourlyWeatherOfCity(city);
 	}	
 		
-	//implement and change uri
+
 	@RequestMapping(method = RequestMethod.GET, value = "daily/{city}")
 	@ApiOperation(value = "Find average daily weather for a given city", notes = "Gives the average daily weather reading for a given city")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
@@ -95,7 +95,7 @@ public class WeatherController {
 	public HashMap<String,Integer> dailyWeatherOfCity(@PathVariable("city") String city) {
 		return service.dailyWeatherOfCity(city);
 	}	
-	//CRUD method
+	//CRUD operation
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Receive weather reading from sensor", notes = "Creates a weatehr reading in the app")
@@ -115,7 +115,7 @@ public class WeatherController {
 	public Weather update(@PathVariable("id") String id, @RequestBody Weather weather) {
 		return service.update(id, weather);
 	}
-	//CRUD method
+	//CRUD operation
 	@RequestMapping(method = RequestMethod.DELETE, value = URI.ID)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),

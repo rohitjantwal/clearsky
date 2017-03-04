@@ -6,10 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-//@NamedQueries({
-//	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w ORDER BY w.firstName"),
-//	@NamedQuery(name="Weather.findByEmail", query="SELECT w FROM Weather w where w.email=:pEmail")
-//})
 public class Wind {
 	
 	@Id

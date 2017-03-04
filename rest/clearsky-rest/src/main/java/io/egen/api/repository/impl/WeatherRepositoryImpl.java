@@ -61,7 +61,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	@Override
 	public List<String> findCityList() {
 		TypedQuery<String> query = em.createNamedQuery("Weather.findCityList", String.class);
-		//List<String> weather = query.getResultList();
 		return query.getResultList();
 	}
 
@@ -82,7 +81,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	public Weather latestWeatherPropertyOfCity(String city, String property) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeather", Weather.class);
 		query.setParameter("pCity", city);
-		//query.setParameter("pProperty", property);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
 			return null;
