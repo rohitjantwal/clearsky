@@ -1,6 +1,7 @@
 package io.egen.api.repository.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,20 +25,8 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 	}
 
 	@Override
-	public Weather findByEmail(String email) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityList", Weather.class);
-		query.setParameter("pEmail", email);
-		List<Weather> users = query.getResultList();
-		if (!users.isEmpty()) {
-			return users.get(0);
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public Weather findOne(String id) {
-		return em.find(Weather.class, id);
+	public Optional<Weather> findOne(String id) {
+		return Optional.ofNullable(em.find(Weather.class, id));
 	}
 
 	@Override
@@ -66,14 +55,14 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
 
 	@Override
-	public Weather latestWeatherOfCity(String city) {
+	public Optional<Weather> latestWeatherOfCity(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeather", Weather.class);
 		query.setParameter("pCity", city);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
-			return null;
+			return Optional.empty();
 		}
-		return weather.get(0);
+		return Optional.of(weather.get(0));
 	}
 
 
@@ -90,28 +79,28 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
 
 	@Override
-	public List<Weather> hourlyWeatherOfCity(String city) {
+	public Optional<List<Weather>> hourlyWeatherOfCity(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherHourlyList", Weather.class);
 		query.setParameter("pCity", city);
 		query.setParameter("hUnixTime", System.currentTimeMillis()-3600000);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
-			return null;
+			return Optional.empty();
 		}
-		return weather;
+		return Optional.of(weather);
 	}
 
 
 	@Override
-	public List<Weather> dailyWeatherOfCity(String city) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherHourlyList", Weather.class);
+	public Optional<List<Weather>> dailyWeatherOfCity(String city) {
+		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherDailyList", Weather.class);
 		query.setParameter("pCity", city);
 		query.setParameter("dUnixTime", System.currentTimeMillis()-86400000);
 		List<Weather> weather = query.getResultList();
 		if(weather.size() == 0){
-			return null;
+			return Optional.empty();
 		}
-		return weather;
+		return Optional.of(weather);
 	}
 
 

@@ -31,11 +31,8 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	@Transactional(readOnly = true)
 	public Weather findOne(String id) {
-		Weather existing = repository.findOne(id);
-		if(existing == null) {
-			throw new NotFoundException("Record with id " + id + " not found.");
-		} 
-		return existing;
+		return repository.findOne(id)
+						 .orElseThrow(()->new NotFoundException("Record with id " + id + " not found."));
 	}
 
 	@Override
@@ -47,20 +44,16 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	@Transactional
 	public Weather update(String id, Weather weather) {
-		Weather existing = repository.findOne(id);
-		if (existing == null) {
-			throw new NotFoundException("Record with id:" + id + " not found");
-		}
+		repository.findOne(id)
+				  .orElseThrow(()->new NotFoundException("Record with id " + id + " not found."));
 		return repository.update(weather);
 	}
 
 	@Override
 	@Transactional
 	public void delete(String id) {
-		Weather existing = repository.findOne(id);
-		if (existing == null) {
-			throw new NotFoundException("Record with id:" + id + " not found.");
-		}
+		Weather existing = repository.findOne(id)
+							.orElseThrow(()->new NotFoundException("Record with id " + id + " not found."));
 		repository.delete(existing);
 	}
 
@@ -74,20 +67,15 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public Weather latestWeatherOfCity(String city) {
-		Weather existing = repository.latestWeatherOfCity(city);
-		if(existing == null){
-			throw new NotFoundException("Record with city " + city + " not found.");
-		}
-		return repository.latestWeatherOfCity(city);
+		return repository.latestWeatherOfCity(city)
+					.orElseThrow(()->new NotFoundException("Record with id " + city + " not found."));
 	}
 
 	@Override
 	public HashMap<String,String> latestWeatherPropertyOfCity(String city, String property) {
-		Weather weather = repository.latestWeatherOfCity(city);
+		Weather weather = repository.latestWeatherOfCity(city)
+					.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
 		HashMap<String,String> returnmap = new HashMap<String,String>();
-		if(weather == null){
-			throw new NotFoundException("Record with city " + city + " not found.");
-		}
 		String str1 = "description";
 		String str2 = "wind";
 		String str3 = "humidity";
@@ -95,22 +83,22 @@ public class WeatherServiceImpl implements WeatherService {
 		String str5 = "temperature";
 		String str6 = "timestamp";
 		if(str1.equalsIgnoreCase(property)){
-			returnmap.put(city, weather.getDescription());
+			returnmap.put(city + "-" + str1, weather.getDescription());
 			return returnmap;
 		}else if(str2.equalsIgnoreCase(property)){
-			returnmap.put(city, weather.getWind().toString());
+			returnmap.put(city + "-" + str2, weather.getWind().toString());
 			return returnmap;
 		}else if(str3.equalsIgnoreCase(property)){
-			returnmap.put(city, String.valueOf(weather.getHumidity()));
+			returnmap.put(city + "-" + str3, String.valueOf(weather.getHumidity()));
 			return returnmap;
 		}else if(str4.equalsIgnoreCase(property)){
-			returnmap.put(city, String.valueOf(weather.getPressure()));
+			returnmap.put(city + "-" + str4, String.valueOf(weather.getPressure()));
 			return returnmap;
 		}else if(str5.equalsIgnoreCase(property)){
-			returnmap.put(city, String.valueOf(weather.getTemperature()));
+			returnmap.put(city + "-" + str5, String.valueOf(weather.getTemperature()));
 			return returnmap;
 		}else if(str6.equalsIgnoreCase(property)){
-			returnmap.put(city, weather.getTimestamp());
+			returnmap.put(city + "-" + str6, weather.getTimestamp());
 			return returnmap;
 		}
 		else{
@@ -120,35 +108,19 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public HashMap<String, Integer> hourlyWeatherOfCity(String city) {
-		List<Weather> weathers = repository.hourlyWeatherOfCity(city);
-		if(weathers == null){
-			throw new NotFoundException("Record with city " + city + " not found.");
-		}
-		int humidityavg=0;
-		int pressureavg=0;
-		int tempavg=0;
-		for(Weather weather: weathers){
-			humidityavg += weather.getHumidity();
-			pressureavg += weather.getPressure();
-			tempavg += weather.getTemperature();
-		}
-		humidityavg =(humidityavg/weathers.size());
-		pressureavg =(pressureavg/weathers.size());
-		tempavg =(tempavg/weathers.size());
-		
-		HashMap<String,Integer> avgmap = new HashMap<String,Integer>();
-		avgmap.put("Average humidity", humidityavg);
-		avgmap.put("Average pressure", pressureavg);
-		avgmap.put("Average temperature", tempavg);
-		return avgmap;
+		List<Weather> weathers = repository.hourlyWeatherOfCity(city)
+				.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
+		return avgproperty(weathers);
 	}
 
 	@Override
 	public HashMap<String,Integer> dailyWeatherOfCity(String city) {
-		List<Weather> weathers = repository.hourlyWeatherOfCity(city);
-		if(weathers == null){
-			throw new NotFoundException("Record with city " + city + " not found.");
-		}
+		List<Weather> weathers = repository.dailyWeatherOfCity(city)
+				.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
+		return avgproperty(weathers);
+	}
+	
+	private HashMap<String,Integer> avgproperty(List<Weather> weathers){
 		int humidityavg=0;
 		int pressureavg=0;
 		int tempavg=0;

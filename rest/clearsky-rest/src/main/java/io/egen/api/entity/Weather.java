@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
 	//4. to get daily average. Use these objects and calculate average in service layer
 	@NamedQuery(name="Weather.findCityWeatherHourlyList", query = "SELECT w FROM Weather w WHERE city = :pCity AND unixTime > :hUnixTime"),
 	//5. to get daily average. Use these objects and calculate average in service layer.
-	@NamedQuery(name="Weather.findCityWeatherDailyList", query = "SELECT w FROM Weather w WHERE city = :pCity AND unixTime > :dunixTime")
+	@NamedQuery(name="Weather.findCityWeatherDailyList", query = "SELECT w FROM Weather w WHERE city = :pCity AND unixTime > :dUnixTime")
 
 })
 public class Weather {
