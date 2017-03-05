@@ -65,19 +65,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		return Optional.of(weather.get(0));
 	}
 
-
-	@Override
-	public Weather latestWeatherPropertyOfCity(String city, String property) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeather", Weather.class);
-		query.setParameter("pCity", city);
-		List<Weather> weather = query.getResultList();
-		if(weather.size() == 0){
-			return null;
-		}
-		return weather.get(0);
-	}
-
-
 	@Override
 	public Optional<List<Weather>> hourlyWeatherOfCity(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findCityWeatherHourlyList", Weather.class);

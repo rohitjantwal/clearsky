@@ -12,9 +12,7 @@ public interface WeatherRepository {
 	public List<String> findCityList();
 
 	public Optional<Weather> latestWeatherOfCity(String city);
-	
-	public Weather latestWeatherPropertyOfCity(String city, String property);
-	
+		
 	public Optional<List<Weather>> hourlyWeatherOfCity(String city);
 	
 	public Optional<List<Weather>> dailyWeatherOfCity(String city);
