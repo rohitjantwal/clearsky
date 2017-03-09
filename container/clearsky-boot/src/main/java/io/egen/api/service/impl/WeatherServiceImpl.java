@@ -64,6 +64,7 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<String> listOfCities() {
 		if(repository.findCityList().isEmpty()){
 			throw new NotFoundException("No weather readings found in the application.");
@@ -72,6 +73,7 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Weather latestWeatherOfCity(String city) {
 		List<Weather> weather = repository.latestWeatherOfCity(city);
 		if(weather.isEmpty()){
@@ -81,6 +83,7 @@ public class WeatherServiceImpl implements WeatherService {
 		}
 
 	@Override
+	@Transactional(readOnly = true)
 	public HashMap<String,String> latestWeatherPropertyOfCity(String city, String property) {
 		List<Weather> weatherlist = repository.latestWeatherOfCity(city);
 		if(weatherlist.isEmpty()){
@@ -119,21 +122,23 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public HashMap<String, Integer> hourlyWeatherOfCity(String city) {
 		long htime =System.currentTimeMillis()-3600000;
 		List<Weather> weathers = repository.hourlyWeatherOfCity(city, htime);
 		if(weathers.isEmpty()){
-			throw new NotFoundException("Record with city " + city + " not found.");
+			throw new NotFoundException("Record with city " + city + " not found in last hour.");
 		}
 		return avgproperty(weathers);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public HashMap<String,Integer> dailyWeatherOfCity(String city) {
 		long dtime =System.currentTimeMillis()-86400000;
 		List<Weather> weathers = repository.dailyWeatherOfCity(city,dtime);
 		if(weathers.isEmpty()){
-			throw new NotFoundException("Record with city " + city + " not found.");
+			throw new NotFoundException("Record with city " + city + " not found in last 24 hrs.");
 		}
 		return avgproperty(weathers);
 	}
