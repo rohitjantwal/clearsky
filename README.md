@@ -6,11 +6,12 @@ seed for the J2EE training project: clearsky
 **`container`** [*module-container*]: contains SpringBoot version of the same API with Docker configuration
 
 ### For the final module submission [*module-complete*], update following urls for your app:    
-**`EC2 Jenkins URL`**: `http://ec2-54-175-205-175.compute-1.amazonaws.com:8080`   
-**`API URL`**: `http://rohitjantwal.com/api/weather`    
-**`Swagger URL`**: `http://ec2-54-205-172-55.compute-1.amazonaws.com:8080/api/swagger-ui.html`    
-**NOTE** : Port 8080 is opened on AWS temporarily to directly access swagger-ui. To access API through nginx goto: rohitjantwal.com/api/weather.
-
+**`EC2 Jenkins URL`**: `http://ec2-54-175-205-175.compute-1.amazonaws.com:8080`      
+**`Swagger URL`**: `http://ec2-54-205-172-55.compute-1.amazonaws.com:8080/api/swagger-ui.html`
+      
+**NOTE** : Port 8080 is opened on AWS temporarily to directly access swagger-ui.  
+To access API through nginx please goto:
+**`API URL`**: `http://rohitjantwal.com/api/weather` 
 
 | REQUEST METHOD  |  URL (with example) |  Description  |  
 | ------------- |:-------------:| -----:|
