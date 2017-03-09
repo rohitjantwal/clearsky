@@ -24,12 +24,12 @@ public interface WeatherRepository extends Repository<Weather, String>{
 	public List<String> findCityList();
 	
 	@Query("SELECT w FROM Weather w WHERE w.city=?1 ORDER BY w.unixTime desc")
-	public Optional<List<Weather>> latestWeatherOfCity(String city);
+	public List<Weather> latestWeatherOfCity(String city);
 	
 	@Query("SELECT w FROM Weather w WHERE city = ?1 AND unixTime > ?2")
-	public Optional<List<Weather>> hourlyWeatherOfCity(String city, long htime);
+	public List<Weather> hourlyWeatherOfCity(String city, long htime);
 	
 	@Query("SELECT w FROM Weather w WHERE city = ?1 AND unixTime > ?2")
-	public Optional<List<Weather>> dailyWeatherOfCity(String city, long dtime);
+	public List<Weather> dailyWeatherOfCity(String city, long dtime);
 
 }

@@ -73,16 +73,19 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public Weather latestWeatherOfCity(String city) {
-		List<Weather> weather = repository.latestWeatherOfCity(city)
-							.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
-		
+		List<Weather> weather = repository.latestWeatherOfCity(city);
+		if(weather.isEmpty()){
+			throw new NotFoundException("Record with city " + city + " not found.");
+		}
 		return (weather.get(0));
 		}
 
 	@Override
 	public HashMap<String,String> latestWeatherPropertyOfCity(String city, String property) {
-		List<Weather> weatherlist = repository.latestWeatherOfCity(city)
-					.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
+		List<Weather> weatherlist = repository.latestWeatherOfCity(city);
+		if(weatherlist.isEmpty()){
+			throw new NotFoundException("Property "+ property +" for city " + city + " not found.");
+		}
 		Weather weather = weatherlist.get(0);
 		HashMap<String,String> returnmap = new HashMap<String,String>();
 		String str1 = "description";
@@ -118,16 +121,20 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public HashMap<String, Integer> hourlyWeatherOfCity(String city) {
 		long htime =System.currentTimeMillis()-3600000;
-		List<Weather> weathers = repository.hourlyWeatherOfCity(city, htime)
-				.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
+		List<Weather> weathers = repository.hourlyWeatherOfCity(city, htime);
+		if(weathers.isEmpty()){
+			throw new NotFoundException("Record with city " + city + " not found.");
+		}
 		return avgproperty(weathers);
 	}
 
 	@Override
 	public HashMap<String,Integer> dailyWeatherOfCity(String city) {
 		long dtime =System.currentTimeMillis()-86400000;
-		List<Weather> weathers = repository.dailyWeatherOfCity(city,dtime)
-				.orElseThrow(()->new NotFoundException("Record with city " + city + " not found."));
+		List<Weather> weathers = repository.dailyWeatherOfCity(city,dtime);
+		if(weathers.isEmpty()){
+			throw new NotFoundException("Record with city " + city + " not found.");
+		}
 		return avgproperty(weathers);
 	}
 	
