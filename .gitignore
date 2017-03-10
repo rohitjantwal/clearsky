@@ -12,3 +12,16 @@
 **/RemoteSystemsTempFiles
 
 **/target/*
+
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.fdt
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.fdx
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.fnm
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.frq
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.nrm
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.prx
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.tii
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/_1.tis
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/segments.gen
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/segments_2
+rest/.recommenders/index/http___download_eclipse_org_recommenders_models_neon_/write.lock
+rest/clearsky-rest/.project
